@@ -23,9 +23,11 @@ def data_factory(realpath_gm_data,matter_involved,username):
 			gm_mask_data_full_bool = gm_mask_data_reshaped.astype(bool)
 			f=open(realpath_gm_data)
 			lista_imagini_gm = []
+			lista_ids = []
 			for line in f.readlines():
 
 				temporar_object = nib.load(line.rstrip('\n'))
+				lista_ids.append(line.rstrip('\n').rsplit('/')[-1].rsplit('sub-')[1].rsplit('.nii')[0])
 				temporar_data = temporar_object.get_data()
 				temporar_data_reshaped = temporar_data.reshape(np.prod(temporar_data.shape),)
 				### this is parsing just over the gm_mask
@@ -33,10 +35,11 @@ def data_factory(realpath_gm_data,matter_involved,username):
 				### this is taking the whole MRI image
 				#lista_imagini_gm.append(temporar_data_reshaped)
 			imagini_gm = np.stack(lista_imagini_gm)
+			ids = lista_ids
 			print('here we print the dimensions of the testing data')
 			print(imagini_gm.shape)
 			f.close
-			return imagini_gm
+			return imagini_gm,ids
 
 
 		if matter_involved=='wm':
@@ -53,6 +56,7 @@ def data_factory(realpath_gm_data,matter_involved,username):
 			for line in f.readlines():
 
 				temporar_object = nib.load(line.rstrip('\n'))
+				lista_ids.append(line.rstrip('\n').rsplit('/')[-1].rsplit('sub-')[1].rsplit('.nii')[0])
 				temporar_data = temporar_object.get_data()
 				temporar_data_reshaped = temporar_data.reshape(np.prod(temporar_data.shape),)
 				### this is parsing just over the gm_mask
@@ -60,18 +64,17 @@ def data_factory(realpath_gm_data,matter_involved,username):
 				### this is taking the whole MRI image
 				#lista_imagini_gm.append(temporar_data_reshaped)
 			imagini_gm = np.stack(lista_imagini_gm)
+			ids = lista_ids
 			print('here we print the dimensions of the testing data')
 			print(imagini_gm.shape)
 			f.close
-			return imagini_gm		
+			return imagini_gm,ids		
 		else:
 			print('the file permits just gray matter data now')
 			sys.exit();
 
 
 if __name__ == '__main__':
-
-
 
 	parser = argparse.ArgumentParser()
 	parser.add_argument('--username',type=str,help='your name')
@@ -80,7 +83,7 @@ if __name__ == '__main__':
 
 	bashCommand='realpath /home/'+str(args.username)+'/CamCan/gm_data/* > /home/'+str(args.username)+'/realpath_camcan_gm.txt'
 	os.system(bashCommand)
-	X = data_factory(realpath_gm_data='/home/'+str(args.username)+'/realpath_camcan_gm.txt',matter_involved=args.matter,username=args.username)
+	X,lista_ids = data_factory(realpath_gm_data='/home/'+str(args.username)+'/realpath_camcan_gm.txt',matter_involved=args.matter,username=args.username)
 	#### now let's save it into a text file
 	np.savetxt('/home/'+str(args.username)+'/CamCan/X_camcan_'+str(args.matter)+'.txt',X,delimiter=',')
 
@@ -91,7 +94,10 @@ if __name__ == '__main__':
 		for line in f.readlines():
 
 			temporar = line.rsplit('\t')[1]
-			lista_age.append([np.float(temporar)])
+			id_current = line.rsplit('\t')[0]
+			if id_current in lista_ids:
+				
+				lista_age.append([np.float(temporar)])
 
 	age_camcan = np.stack(lista_age)
 	
