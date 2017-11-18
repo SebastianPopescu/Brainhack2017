@@ -53,6 +53,7 @@ def data_factory(realpath_gm_data,matter_involved,username):
 			gm_mask_data_full_bool = gm_mask_data_reshaped.astype(bool)
 			f=open(realpath_gm_data)
 			lista_imagini_gm = []
+			lista_ids=[]
 			for line in f.readlines():
 
 				temporar_object = nib.load(line.rstrip('\n'))
