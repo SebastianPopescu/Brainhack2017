@@ -7,7 +7,7 @@ import time
 import nibabel as nib
 import random
 import os
-
+import argparse
 
 
 def data_factory(realpath_gm_data,matter_involved,username):
@@ -48,7 +48,7 @@ if __name__ == '__main__':
 
 
 	parser = argparse.ArgumentParser()
-	parser.add_argument('--username',type=str,help='your name'	
+	parser.add_argument('--username',type=str,help='your name')	
 	args = parser.parse_args()
 
 	bashCommand='realpath /home/'+str(username)+'/CamCan/gm_data/* > /home/'+str(args.username)+'/realpath_camcan_gm.txt'
