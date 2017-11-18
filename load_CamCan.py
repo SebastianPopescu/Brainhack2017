@@ -94,7 +94,7 @@ if __name__ == '__main__':
 			lista_age.append([np.float(temporar)])
 
 	age_camcan = np.stack(lista_age)
-	age_camcan = age_camcan[perm]
+	
 
-	np.savetxt(age_camcan,'/home/'+str(args.username)+'/CamCan/Y_camcan.txt')
+	np.savetxt('/home/'+str(args.username)+'/CamCan/Y_camcan.txt',age_camcan,delimiter=',')
 
