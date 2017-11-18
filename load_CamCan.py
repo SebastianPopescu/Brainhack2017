@@ -55,9 +55,7 @@ if __name__ == '__main__':
 	os.system(bashCommand)
 	X = data_factory(realpath_gm_data='/home/'+str(args.username)+'/realpath_camcan_gm.txt',matter_involved='gm',username=args.username)
 	#### now let's save it into a text file
-	np.savetxt(X,'/home/'+str(username)+'/CamCan/X_camcan.txt',delimiter=',')
-
-
+	np.savetxt('/home/'+str(username)+'/CamCan/X_camcan_gm.txt',X,delimiter=',')
 
 	### let's parse the age of the subjects
 
@@ -71,5 +69,5 @@ if __name__ == '__main__':
 	age_camcan = np.stack(lista_age)
 	age_camcan = age_camcan[perm]
 
-	np.savetxt(age_camcan,'/home/'+str(username)+'/CamCan//Y_camcan.txt')
+	np.savetxt(age_camcan,'/home/'+str(username)+'/CamCan/Y_camcan.txt')
 
