@@ -75,7 +75,7 @@ if __name__ == '__main__':
 
 	parser = argparse.ArgumentParser()
 	parser.add_argument('--username',type=str,help='your name')
-	parser.add_argument('---matter',type=str,help='the type of matter---choose between gm and wm')
+	parser.add_argument('--matter',type=str,help='the type of matter---choose between gm and wm')
 	args = parser.parse_args()
 
 	bashCommand='realpath /home/'+str(args.username)+'/CamCan/gm_data/* > /home/'+str(args.username)+'/realpath_camcan_gm.txt'
