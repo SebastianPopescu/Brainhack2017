@@ -53,7 +53,7 @@ if __name__ == '__main__':
 
 	bashCommand='realpath /home/'+str(args.username)+'/CamCan/gm_data/* > /home/'+str(args.username)+'/realpath_camcan_gm.txt'
 	os.system(bashCommand)
-	X = data_factory(realpath_gm_data='home/'+str(args.username)+'/realpath_camcan_gm.txt',matter_involved='gm',username=args.username)
+	X = data_factory(realpath_gm_data='/home/'+str(args.username)+'/realpath_camcan_gm.txt',matter_involved='gm',username=args.username)
 	#### now let's save it into a text file
 	np.savetxt(X,'/home/'+str(username)+'/CamCan/X_camcan.txt',delimiter=',')
 
