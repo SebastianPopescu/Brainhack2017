@@ -27,7 +27,7 @@ def data_factory(realpath_gm_data,matter_involved,username):
 			for line in f.readlines():
 
 				temporar_object = nib.load(line.rstrip('\n'))
-				lista_ids.append(line.rstrip('\n').rsplit('/')[-1].rsplit('sub-')[1].rsplit('.nii')[0])
+				lista_ids.append(line.rstrip('\n').rsplit('/')[-1].rsplit('sub-')[1].rsplit('_T1.nii')[0])
 				temporar_data = temporar_object.get_data()
 				temporar_data_reshaped = temporar_data.reshape(np.prod(temporar_data.shape),)
 				### this is parsing just over the gm_mask
@@ -56,7 +56,7 @@ def data_factory(realpath_gm_data,matter_involved,username):
 			for line in f.readlines():
 
 				temporar_object = nib.load(line.rstrip('\n'))
-				lista_ids.append(line.rstrip('\n').rsplit('/')[-1].rsplit('sub-')[1].rsplit('.nii')[0])
+				lista_ids.append(line.rstrip('\n').rsplit('/')[-1].rsplit('sub-')[1].rsplit('_T1.nii')[0])
 				temporar_data = temporar_object.get_data()
 				temporar_data_reshaped = temporar_data.reshape(np.prod(temporar_data.shape),)
 				### this is parsing just over the gm_mask
